@@ -1,4 +1,5 @@
 <?php
+define('IVA', 0.21);
 class Soporte
 {
     public $titulo;
@@ -7,14 +8,10 @@ class Soporte
     public function __construct($titulo, $numero, $precio)
     {
         $this->titulo = $titulo;
-        $this->numero = $$numero;
+        $this->numero = $numero;
         $this->precio = $precio;
     }
 
-    public function getTitulo()
-    {
-        return $this->titulo;
-    }
     public function getNumero()
     {
         return $this->numero;
@@ -25,16 +22,5 @@ class Soporte
     }
 
     public function muestraResumen() {}
+    public function getPrecioConIva() {}
 }
-
-?>
-
-
-<!-- private $plataforma;
- public function __construct($c, $t, $v, $p)
- {
- $this->codigo = $c;
- $this->titulo = $t;
- $this->version = $v;
- $this->plataforma = $p;
- } -->
