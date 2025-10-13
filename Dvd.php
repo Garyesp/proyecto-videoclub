@@ -8,7 +8,7 @@ class Dvd extends Soporte {
         parent::__construct($titulo,$numero,$precio);
         $this->$idiomas = $idiomas;
         $this->$formatoPantalla = $formatoPantalla;
-    }
+    } 
 }
 
 
