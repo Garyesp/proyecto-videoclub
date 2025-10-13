@@ -1,4 +1,5 @@
 <?php
+require_once 'Soporte.php';
 class CintaVideo extends Soporte {
     private $duracion;
 
@@ -7,7 +8,7 @@ class CintaVideo extends Soporte {
         parent::__construct($titulo,$numero);
         $this->duracion = $duracion;
     }
-    
+
     public function muestraResumen() {
 
     }
