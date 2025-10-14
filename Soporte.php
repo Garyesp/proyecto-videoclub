@@ -1,5 +1,5 @@
 <?php
-define('IVA', 0.21);
+define('IVA', 1.21);
 class Soporte
 {
     public $titulo;
@@ -23,5 +23,8 @@ class Soporte
     }
 
     public function muestraResumen() {}
-    public function getPrecioConIva() {}
+    public function getPrecioConIva()
+    {
+        return $this->precio / IVA;
+    }
 }
