@@ -4,6 +4,7 @@ require_once 'Soporte.php';
 class CintaVideo extends Soporte {
     private $duracion;
 
+    // Constructor
     public function __construct($titulo, $numero, $precio, $duracion) 
     {
         parent::__construct($titulo, $numero, $precio);
@@ -11,10 +12,10 @@ class CintaVideo extends Soporte {
     }
 
     public function muestraResumen() {
-        echo "Película en VHS:\n";
-        echo "<br>$this->titulo\n";
-        echo "<br>".$this->getPrecio()." € (IVA no incluido)\n";
-        echo "<br>Duración: $this->duracion minutos\n";
+        echo "Película en VHS:";
+        echo "<br>$this->titulo";
+        echo "<br>".$this->getPrecio()." € (IVA no incluido)";
+        echo "<br>Duración: $this->duracion minutos";
     }
 }
 ?>
