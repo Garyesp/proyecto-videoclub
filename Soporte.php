@@ -25,6 +25,6 @@ class Soporte
     public function muestraResumen() {}
     public function getPrecioConIva()
     {
-        return $this->precio / IVA;
+        return $this->precio * IVA;
     }
 }
