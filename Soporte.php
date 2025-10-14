@@ -6,6 +6,7 @@ class Soporte
     protected $numero;
     private $precio;
     public function __construct($titulo, $numero, $precio)
+
     {
         $this->titulo = $titulo;
         $this->numero = $numero;
