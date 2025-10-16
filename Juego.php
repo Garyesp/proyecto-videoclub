@@ -13,19 +13,33 @@ class Juego extends Soporte
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
     }
-    public function muestraJugadoresPosibles() {}
-    public function muestraResumen() {}
+    public function muestraJugadoresPosibles()
+    {
+        return $this->maxNumJugadores;
+    }
+    public function muestraResumen()
+    {
+        echo "Juego para: $this->consola<br>";
+        echo "$this->titulo<br>";
+        echo $this->getPrecio() . " (IVA no incluido)<br>";
+        // echo "Para " . $this->maxNumJugadores . " Jugador";
+        if ($this->minNumJugadores == $this->maxNumJugadores) {
+            echo "Para $this->minNumJugadores Jugadores";
+        }
+        if ($this->maxNumJugadores < $this->minNumJugadores) {
+            echo "Error al crear Juego: min:$this->minNumJugadores / max: $this->maxNumJugadores <br>";
+            echo $this->asignarnumero();
+        };
+    }
 }
 
-// echo "Película en VHS:\n";
-// echo "<br>$this->titulo\n";
-// echo "<br>".$this->getPrecio()." € (IVA no incluido)\n";
-// echo "<br>Duración: $this->duracion minutos\n";
 
-// include "Juego.php";
 
-// $miJuego = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);
-// echo "<strong>" . $miJuego->titulo . "</strong>";
-// echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
-// echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
-// $miJuego->muestraResumen();
+// The Last of Us Part II
+// Precio: 49.99 euros
+// Precio IVA incluido: 57.9884 euros
+
+// Juego para: PS4
+// The Last of Us Part II
+// 49.99 € (IVA no incluido)
+// Para un jugador
