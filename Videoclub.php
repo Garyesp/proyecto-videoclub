@@ -69,7 +69,7 @@ class Videoclub
         $i = 1;
         foreach ($this->socios as $s) {
             echo $i . ".- Cliente " . $s->getNumero() . ": " . $s->nombre . "<br>";
-            echo "Alquileres actuales: " . count($s->getSoportesAlquilados()) . "<br>";
+            echo "Alquileres actuales: " .$s->getSoportesAlquilados() . "<br>";
             $i++;
         }
     }

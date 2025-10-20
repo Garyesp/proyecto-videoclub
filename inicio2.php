@@ -6,7 +6,7 @@ include_once "Cliente.php";
 
 //instanciamos un par de objetos cliente
 $cliente1 = new Cliente("Bruce Wayne", 23);
-$cliente2 = new Cliente("Clark Kent", 33);
+$cliente2 = new Cliente("Clark Kent", 23);
 
 //mostramos el número de cada cliente creado 
 echo "<br>El identificador del cliente 1 es: " . $cliente1->getNumero();

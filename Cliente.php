@@ -19,6 +19,10 @@ class Cliente
         return $this->numero;
     }
 
+    public function getSoportesAlquilados() {
+        return  count($this->soportesAlquilados);
+    }
+
     public function setNumero($numero)
     {
         $this->numero = $numero;
@@ -116,6 +120,10 @@ class Cliente
             $s->muestraResumen();
             echo "<br>";
         }
+    }
+
+    public function comprobarID() {
+
     }
 
 }
