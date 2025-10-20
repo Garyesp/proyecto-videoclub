@@ -20,7 +20,7 @@ class Videoclub
     private function incluirProducto(Soporte $producto)
     {
         $this->productos[] = $producto;
-        echo "Incluido soporte " . $this->numProductos . "<br>";
+        echo "<br>Incluido soporte " . $this->numProductos . "<br>";
         $this->numProductos++;
     }
 
@@ -46,7 +46,7 @@ class Videoclub
     {
         $cliente = new Cliente($nombre, $this->numSocios, $maxAlquileresConcurrentes);
         $this->socios[] = $cliente;
-        echo "Incluido socio " . $this->numSocios . "<br>";
+        echo "<br>Incluido socio " . $this->numSocios . "<br>";
         $this->numSocios++;
     }
 
@@ -56,9 +56,8 @@ class Videoclub
         // para contar un numero que va aumentando en cada juego
         $i = 1;
         foreach ($this->productos as $p) {
-            echo $i . ".- ";
-            $p->muestraResumen();
-            echo "<br>";
+            echo $i . "-";
+            $p->muestraResumen() . "<br>";
             $i++;
         }
     }
@@ -68,7 +67,7 @@ class Videoclub
         echo "<br>Listado de " . $this->numSocios . " socios del videoclub:<br>";
         $i = 1;
         foreach ($this->socios as $s) {
-            echo $i . ".- Cliente " . $s->getNumero() . ": " . $s->nombre . "<br>";
+            echo $i . "- Cliente " . $s->getNumero() . ": " . $s->nombre . "<br>";
             echo "Alquileres actuales: " .$s->getSoportesAlquilados() . "<br>";
             $i++;
         }
@@ -79,20 +78,23 @@ class Videoclub
         $socio = null;
         $producto = null;
 
+        // compruebo si el numero coincide con el de un socio
+        // si lo es guardo ese objeto dentro de la variable socio null
          foreach ($this->socios as $c) {
             if ($c->getNumero() == $numeroCliente) {
                 $socio = $c;
                 break;
             }
         }
-
+        // compruebo si el numero coincide con el de un soporte,
+        // si lo es guardo ese objeto dentro de la variable producto null
         foreach ($this->productos as $p) {
             if ($p->getNumero() == $numeroSoporte) {
                 $producto = $p;
                 break;
             }
         }
-
+        // si cumplo lo anterior, llamo al metodo de alquilar de cliente
         if ($socio && $producto) {
             $socio->alquilar($producto);
         }

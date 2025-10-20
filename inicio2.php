@@ -5,8 +5,10 @@ include_once "Juego.php";
 include_once "Cliente.php";
 
 //instanciamos un par de objetos cliente
+
 $cliente1 = new Cliente("Bruce Wayne");
 $cliente2 = new Cliente("Clark Kent");
+
 
 //mostramos el número de cada cliente creado 
 echo "<br>El identificador del cliente 1 es: " . $cliente1->getNumero();

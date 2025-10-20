@@ -1,6 +1,7 @@
 <?php
+require_once 'Resumible.php';
 define('IVA', 1.21);
-class Soporte
+ abstract class Soporte implements Resumible
 {
     public $titulo;
     private $numero = 0;
@@ -37,3 +38,4 @@ class Soporte
         return $this->precio * IVA;
     }
 }
+?>
