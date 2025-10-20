@@ -6,20 +6,25 @@ class Cliente
     private $soportesAlquilados = [];
     private $numSoportesAlquilados;
     private $maxAlquilerConcurrente;
+    private static $numeroCliente = 0;
 
-    public function __construct($nombre, $numero, $maxAlquilerConcurrente = 3)
+    public function __construct($nombre, $maxAlquilerConcurrente = 3)
     {
         $this->nombre = $nombre;
-        $this->numero = $numero;
+        $this->numero = self::$numeroCliente;
         $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
+        self::$numeroCliente++;
     }
+
+
 
     public function getNumero()
     {
         return $this->numero;
     }
 
-    public function getSoportesAlquilados() {
+    public function getSoportesAlquilados()
+    {
         return  count($this->soportesAlquilados);
     }
 
@@ -119,9 +124,4 @@ class Cliente
             echo "<br>";
         }
     }
-
-    public function comprobarID() {
-
-    }
-
 }
