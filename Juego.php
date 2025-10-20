@@ -1,10 +1,7 @@
 <?php
 require_once 'Soporte.php';
-<<<<<<< HEAD
-=======
 
 
->>>>>>> developer2
 class Juego extends Soporte
 {
     public $consola;
@@ -18,24 +15,6 @@ class Juego extends Soporte
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
     }
-<<<<<<< HEAD
-    public function muestraJugadoresPosibles() {}
-    public function muestraResumen() {}
-}
-
-// echo "Película en VHS:\n";
-// echo "<br>$this->titulo\n";
-// echo "<br>".$this->getPrecio()." € (IVA no incluido)\n";
-// echo "<br>Duración: $this->duracion minutos\n";
-
-// include "Juego.php";
-
-// $miJuego = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);
-// echo "<strong>" . $miJuego->titulo . "</strong>";
-// echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
-// echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
-// $miJuego->muestraResumen();
-=======
     public function muestraJugadoresPosibles()
     {
 
@@ -59,4 +38,3 @@ class Juego extends Soporte
         $this->muestraJugadoresPosibles();
     }
 }
->>>>>>> developer2
