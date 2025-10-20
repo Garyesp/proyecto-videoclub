@@ -6,40 +6,24 @@ class Juego extends Soporte
     private $minNumJugadores;
     private $maxNumJugadores;
 
-    public function __construct($titulo, $numero, $precio, $consola, $minNumJugadores, $maxNumJugadores)
+    public function __construct($titulo, $precio, $consola, $minNumJugadores, $maxNumJugadores)
     {
-        parent::__construct($titulo, $numero, $precio);
+        parent::__construct($titulo, $precio);
         $this->consola = $consola;
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
     }
     public function muestraJugadoresPosibles()
     {
-        return $this->maxNumJugadores;
+        if ($this->minNumJugadores == $this->maxNumJugadores) {
+            return "Para {$this->minNumJugadores} jugador(es)";
+        } else {
+            return "De {$this->minNumJugadores} a {$this->maxNumJugadores} jugadores";
+        }
     }
     public function muestraResumen()
     {
-        echo "Juego para: $this->consola<br>";
-        echo "$this->titulo<br>";
-        echo $this->getPrecio() . " (IVA no incluido)<br>";
-        // echo "Para " . $this->maxNumJugadores . " Jugador";
-        if ($this->minNumJugadores == $this->maxNumJugadores) {
-            echo "Para $this->minNumJugadores Jugadores";
-        }
-        if ($this->maxNumJugadores < $this->minNumJugadores) {
-            echo "Error al crear Juego: min:$this->minNumJugadores / max: $this->maxNumJugadores <br>";
-            echo $this->asignarnumero();
-        };
+        echo "Juego para: {$this->consola}<br>";
+        echo "Jugadores: {$this->muestraJugadoresPosibles()}<br>";
     }
 }
-
-
-
-// The Last of Us Part II
-// Precio: 49.99 euros
-// Precio IVA incluido: 57.9884 euros
-
-// Juego para: PS4
-// The Last of Us Part II
-// 49.99 € (IVA no incluido)
-// Para un jugador

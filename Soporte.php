@@ -5,16 +5,15 @@ class Soporte
     public $titulo;
     private $numero = 0;
     private $precio;
-    public function __construct($titulo, $numero, $precio)
+    private static $contador = 1;
+
+    public function __construct($titulo, $precio)
 
     {
         $this->titulo = $titulo;
-        $this->numero = $numero;
         $this->precio = $precio;
-    }
-    protected function asignarnumero()
-    {
-        return $this->numero++;
+        $this->numero = self::$contador;
+        self::$contador++;
     }
 
     public function getNumero()
@@ -28,12 +27,13 @@ class Soporte
 
     public function muestraResumen()
     {
-        echo "Titulo: $this->titulo";
-        echo "Numero: $this->numero";
-        echo "Precio: $this->precio";
+        echo "Titulo: {$this->titulo}<br>";
+        echo "Numero: {$this->numero}<br>";
+        echo "Precio: {$this->precio}<br>";
+        echo "Precio con Iva: {$this->getPrecioConIva()}<br>";
     }
     public function getPrecioConIva()
     {
-        return $this->precio * IVA;
+        return number_format($this->precio * IVA, 2);
     }
 }

@@ -1,17 +1,22 @@
-<?php
-include "Soporte.php";
-
-$soporte1 = new Soporte("Tenet", 22, 3);
-echo "<strong>" . $soporte1->titulo . "</strong>";
-echo "<br>Precio: " . $soporte1->getPrecio() . " euros";
-echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
-$soporte1->muestraResumen();
-echo "<br><br>";
-//test juego.php
+<?php include "Soporte.php";
 include "Juego.php";
+?>
+<?php
+// test soporte
+$soporte1 = new Soporte("Tenet",3.77);
+$soporte1->muestraResumen();
+echo "<br>";
 
-$miJuego = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 2, 1);
-echo "<strong>" . $miJuego->titulo . "</strong>";
-echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
-echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
-$miJuego->muestraResumen();
+?>
+
+<?php
+//test juego.php
+//$miJuego = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 2, 4); //no deberia tener el numero asignado porque es automatico
+$mijuego = new Juego("The Last of Us Part II", 49.99, "PS4", 4, 4);
+echo "<strong>{$mijuego->titulo}</strong><br>";
+echo "Numero: {$mijuego->getNumero()}<br>";
+echo "Precio: {$mijuego->getPrecio()} Euros <br>";
+echo "Precio IVA incluido: {$mijuego->getPrecioConIva()}<br>";
+$mijuego->muestraResumen();
+
+?>
