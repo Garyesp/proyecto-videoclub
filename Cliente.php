@@ -86,21 +86,19 @@ class Cliente
         foreach ($this->soportesAlquilados as $s => $soporte) {
             if ($soporte->getNumero() === $numSoporte) {
 
+                // para borrar
                 unset($this->soportesAlquilados[$s]);
 
                 $this->numSoportesAlquilados--;
 
-
-
                 echo "Se ha devuelto el soporte alquilado número $numSoporte correctamente.<br>";
-
 
                 return true;
             }
         }
 
         if ($this->numSoportesAlquilados() == 0) {
-            echo "Este cliente no tiene alquilado ningún elemento <br>";
+            echo "<br>Este cliente no tiene alquilado ningún elemento <br>";
         }
         echo "No se ha podido encontrar el soporte en los alquileres de este cliente<br>";
 
