@@ -1,5 +1,10 @@
 <?php
 require_once 'Soporte.php';
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> developer2
 class Juego extends Soporte
 {
     public $consola;
@@ -13,6 +18,7 @@ class Juego extends Soporte
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
     }
+<<<<<<< HEAD
     public function muestraJugadoresPosibles() {}
     public function muestraResumen() {}
 }
@@ -29,3 +35,28 @@ class Juego extends Soporte
 // echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
 // echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
 // $miJuego->muestraResumen();
+=======
+    public function muestraJugadoresPosibles()
+    {
+
+        if ($this->minNumJugadores == "1"  && $this->maxNumJugadores == "1") {
+            echo "Para $this->minNumJugadores jugador";
+        } else if ($this->minNumJugadores == $this->maxNumJugadores) {
+            echo "Para $this->minNumJugadores jugadores";
+        } else if ($this->minNumJugadores == "1" && $this->maxNumJugadores != "1") {
+            echo "De $this->minNumJugadores para $this->maxNumJugadores jugadores";
+        }
+        if ($this->maxNumJugadores < $this->minNumJugadores) {
+            echo "Error al crear Juego: min:$this->minNumJugadores / max: $this->maxNumJugadores <br>";
+            echo $this->asignarnumero();
+        };
+    }
+    public function muestraResumen()
+    {
+          echo "Juego para: $this->consola<br>";
+       echo $this->titulo . "<br>";
+        echo $this->getPrecio() . " € (IVA no incluido)<br>";
+        $this->muestraJugadoresPosibles();
+    }
+}
+>>>>>>> developer2
