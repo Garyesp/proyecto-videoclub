@@ -1,6 +1,6 @@
 <?php
-require_once 'Soporte.php';
-
+//require_once '/Soporte.php';
+require_once __DIR__ . '/Soporte.php';
 
 class Juego extends Soporte
 {
@@ -8,9 +8,9 @@ class Juego extends Soporte
     private $minNumJugadores;
     private $maxNumJugadores;
 
-    public function __construct($titulo, $numero, $precio, $consola, $minNumJugadores, $maxNumJugadores)
+    public function __construct($titulo, $precio, $consola, $minNumJugadores, $maxNumJugadores)
     {
-        parent::__construct($titulo, $numero, $precio);
+        parent::__construct($titulo, $precio);
         $this->consola = $consola;
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
@@ -32,8 +32,8 @@ class Juego extends Soporte
     }
     public function muestraResumen()
     {
-          echo "Juego para: $this->consola<br>";
-       echo $this->titulo . "<br>";
+        echo "Juego para: $this->consola<br>";
+        echo $this->titulo . "<br>";
         echo $this->getPrecio() . " € (IVA no incluido)<br>";
         $this->muestraJugadoresPosibles();
     }

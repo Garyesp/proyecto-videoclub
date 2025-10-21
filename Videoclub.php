@@ -26,19 +26,19 @@ class Videoclub
 
     public function incluirCintaVideo($titulo, $precio, $duracion)
     {
-        $cinta = new CintaVideo($titulo, $this->numProductos, $precio, $duracion);
+        $cinta = new CintaVideo($titulo, $precio, $duracion);
         $this->incluirProducto($cinta);
     }
 
     public function incluirDvd($titulo, $precio, $idiomas, $pantalla)
     {
-        $dvd = new Dvd($titulo, $this->numProductos, $precio, $idiomas, $pantalla);
+        $dvd = new Dvd($titulo, $precio, $idiomas, $pantalla);
         $this->incluirProducto($dvd);
     }
 
     public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ)
     {
-        $juego = new Juego($titulo, $this->numProductos, $precio, $consola, $minJ, $maxJ);
+        $juego = new Juego($titulo, $precio, $consola, $minJ, $maxJ);
         $this->incluirProducto($juego);
     }
 
@@ -50,7 +50,7 @@ class Videoclub
         $this->numSocios++;
     }
 
-       public function listarProductos()
+    public function listarProductos()
     {
         echo "<br>Listado de " . $this->numProductos . " productos disponibles:<br>";
         // para contar un numero que va aumentando en cada juego
@@ -68,7 +68,7 @@ class Videoclub
         $i = 1;
         foreach ($this->socios as $s) {
             echo $i . "- Cliente " . $s->getNumero() . ": " . $s->nombre . "<br>";
-            echo "Alquileres actuales: " .$s->getSoportesAlquilados() . "<br>";
+            echo "Alquileres actuales: " . $s->getSoportesAlquilados() . "<br>";
             $i++;
         }
     }
@@ -80,7 +80,7 @@ class Videoclub
 
         // compruebo si el numero coincide con el de un socio
         // si lo es guardo ese objeto dentro de la variable socio null
-         foreach ($this->socios as $c) {
+        foreach ($this->socios as $c) {
             if ($c->getNumero() == $numeroCliente) {
                 $socio = $c;
                 break;
@@ -100,4 +100,3 @@ class Videoclub
         }
     }
 }
-?>

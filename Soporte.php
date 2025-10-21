@@ -1,17 +1,21 @@
 <?php
-require_once 'Resumible.php';
+//require_once 'Resumible.php';
 define('IVA', 1.21);
- abstract class Soporte implements Resumible
+class Soporte
 {
     public $titulo;
     private $numero = 0;
     private $precio;
-    public function __construct($titulo, $numero, $precio)
+    private static $contadorsoporte = 0;
+
+    public function __construct($titulo, $precio)
 
     {
         $this->titulo = $titulo;
-        $this->numero = $numero;
+        //$this->numero = $numero;
+        $this->numero = self::$contadorsoporte;
         $this->precio = $precio;
+        self::$contadorsoporte++;
     }
     protected function asignarnumero()
     {
@@ -38,4 +42,3 @@ define('IVA', 1.21);
         return $this->precio * IVA;
     }
 }
-?>

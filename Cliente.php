@@ -11,9 +11,8 @@ class Cliente
     public function __construct($nombre, $maxAlquilerConcurrente = 3)
     {
         $this->nombre = $nombre;
-        $this->numero = self::$numeroCliente;
+        $this->numero = self::$numeroCliente++;
         $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
-        self::$numeroCliente++;
     }
 
 
