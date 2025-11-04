@@ -4,7 +4,7 @@ require_once "CintaVideo.php";
 require_once "Dvd.php";
 require_once "Juego.php";
 require_once "Cliente.php";
-class Videoclub
+abstract class Videoclub
 {
     private $nombre;
     private $productos = [];
