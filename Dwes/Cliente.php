@@ -1,10 +1,16 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+use Dwes\Util\SoporteYaAlquiladoException;
+use Dwes\Util\CupoSuperadoException;
+use Dwes\Util\SoporteNoEncontradoException;
+
+
 class Cliente
 {
     public $nombre;
     private $numero;
     private $soportesAlquilados = [];
-    private $numSoportesAlquilados;
+    private $numSoportesAlquilados = 0;
     private $maxAlquilerConcurrente;
     private static $numeroCliente = 0;
 
@@ -15,8 +21,6 @@ class Cliente
         $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
     }
 
-
-
     public function getNumero()
     {
         return $this->numero;
@@ -24,12 +28,7 @@ class Cliente
 
     public function getSoportesAlquilados()
     {
-        return  count($this->soportesAlquilados);
-    }
-
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
+        return count($this->soportesAlquilados);
     }
 
     private function numSoportesAlquilados()
@@ -46,67 +45,55 @@ class Cliente
     public function muestraResumen()
     {
         echo "<br>Nombre: $this->nombre<br>";
-        echo "Cantidad de alquileres: " . count($this->soportesAlquilados);
+        echo "Cantidad de alquileres: " . count($this->soportesAlquilados) . "<br>";
         echo "Numero: $this->numero<br>";
     }
 
     public function tieneAlquilado(Soporte $s): bool
     {
         foreach ($this->soportesAlquilados as $soporte) {
-            if ($soporte === ($s)) {
+            if ($soporte === $s) {
                 return true;
             }
         }
         return false;
     }
 
-
-
-    public function alquilar(Soporte $s): bool
+    // Ahora lanza excepciones y devuelve $this para encadenar
+    public function alquilar(Soporte $s)
     {
         if ($this->tieneAlquilado($s)) {
-            echo "El cliente ya tiene alquilado el soporte " . $s->titulo . "<br>";
-            return false;
+            throw new SoporteYaAlquiladoException("El cliente ya tiene alquilado el soporte {$s->titulo}");
         }
 
-
         if (count($this->soportesAlquilados) >= $this->maxAlquilerConcurrente) {
-            echo "Este cliente tiene " . count($this->soportesAlquilados) . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br>";
-            return false;
+            throw new CupoSuperadoException("Cupo de alquileres superado para el cliente {$this->nombre}");
         }
 
         $this->soportesAlquilados[] = $s;
-
-
+        $s->alquilado = true;
         $this->numSoportesAlquilados++;
-        echo "<br>Alquilado soporte a: $this->nombre<br>";
-        $s->muestraResumen();
-        echo "<br>";
-        return true;
+        return $this;
     }
 
-    public function devolver(int $numSoporte): bool
+    // ahora devuelve $this para encadenado y lanza excepción si no existe
+    public function devolver(int $numSoporte)
     {
-        foreach ($this->soportesAlquilados as $s => $soporte) {
+        foreach ($this->soportesAlquilados as $index => $soporte) {
             if ($soporte->getNumero() === $numSoporte) {
+                // marca como devuelto
+                $soporte->alquilado = false;
 
                 // para borrar
-                unset($this->soportesAlquilados[$s]);
-
+                unset($this->soportesAlquilados[$index]);
                 $this->numSoportesAlquilados--;
 
-                echo "Se ha devuelto el soporte alquilado número $numSoporte correctamente.<br>";
-
-                return true;
+                return $this;
             }
         }
 
-        if ($this->numSoportesAlquilados() == 0) {
-            echo "<br>Este cliente no tiene alquilado ningún elemento <br>";
-        }
-        echo "No se ha podido encontrar el soporte en los alquileres de este cliente<br>";
-
-        return false;
+        // no encontrado
+        throw new SoporteNoEncontradoException("El soporte $numSoporte no está alquilado por el cliente {$this->nombre}");
     }
 
     public function listarAlquileres(): void

@@ -1,5 +1,5 @@
 <?php
-require_once 'Soporte.php';
+namespace Dwes\ProyectoVideoclub;
 
 class Dvd extends Soporte
 {
@@ -15,11 +15,10 @@ class Dvd extends Soporte
 
     public function muestraResumen()
     {
-
         echo "<br>Película en DVD:<br>";
-        echo $this->titulo;
-        echo "<br>" . $this->getPrecio() . "€ (IVA no incluido)";
-        echo "<br>Idiomas:" . $this->idiomas;
-        echo "<br>Formato Pantalla:" . $this->formatoPantalla;
+        echo $this->titulo . "<br>";
+        echo $this->getPrecio() . "€ (IVA no incluido)<br>";
+        echo "Idiomas: " . $this->idiomas . "<br>";
+        echo "Formato Pantalla: " . $this->formatoPantalla . "<br>";
     }
 }

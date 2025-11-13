@@ -1,5 +1,5 @@
 <?php
-require_once 'Soporte.php';
+namespace Dwes\ProyectoVideoclub;
 
 class CintaVideo extends Soporte
 {
@@ -13,11 +13,9 @@ class CintaVideo extends Soporte
 
     public function muestraResumen()
     {
-
-        echo "Película en VHS:\n";
-
-        echo "<br>$this->titulo\n";
-        echo "<br>" . $this->getPrecio() . " € (IVA no incluido)\n";
-        echo "<br>Duración: $this->duracion minutos\n";
+        echo "Película en VHS:<br>";
+        echo $this->titulo . "<br>";
+        echo $this->getPrecio() . " € (IVA no incluido)<br>";
+        echo "Duración: $this->duracion minutos<br>";
     }
 }

@@ -1,6 +1,5 @@
 <?php
-//require_once '/Soporte.php';
-require_once __DIR__ . '/Soporte.php';
+namespace Dwes\ProyectoVideoclub;
 
 class Juego extends Soporte
 {
@@ -15,10 +14,10 @@ class Juego extends Soporte
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
     }
+
     public function muestraJugadoresPosibles()
     {
-
-        if ($this->minNumJugadores == "1"  && $this->maxNumJugadores == "1") {
+        if ($this->minNumJugadores == "1" && $this->maxNumJugadores == "1") {
             echo "Para $this->minNumJugadores jugador";
         } else if ($this->minNumJugadores == $this->maxNumJugadores) {
             echo "Para $this->minNumJugadores jugadores";
@@ -30,6 +29,7 @@ class Juego extends Soporte
             echo $this->asignarnumero();
         };
     }
+
     public function muestraResumen()
     {
         echo "Juego para: $this->consola<br>";

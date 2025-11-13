@@ -1,8 +1,7 @@
-
 <?php
+use Dwes;
 
-
-include "CintaVideo.php";
+//include "CintaVideo.php";
 
 
 //$miCinta = new CintaVideo("Los cazafantasmas", 23, 3.5, 107);
