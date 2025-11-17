@@ -5,121 +5,89 @@ use Dwes\Util\SoporteYaAlquiladoException;
 use Dwes\Util\CupoSuperadoException;
 use Dwes\Util\SoporteNoEncontradoException;
 
-
 class Videoclub
 {
     private $nombre;
     private $productos = [];
-    private $numProductos = 0;
     private $socios = [];
-    private $numSocios = 0;
-
-    // nuevos contadores
     private $numProductosAlquilados = 0;
     private $numTotalAlquileres = 0;
 
-    public function __construct($nombre)
+    public function __construct(string $nombre)
     {
         $this->nombre = $nombre;
     }
 
-    private function incluirProducto(Soporte $producto)
+    public function incluirProducto(Soporte $producto)
     {
         $this->productos[] = $producto;
-        echo "<br>Incluido soporte " . $this->numProductos . "<br>";
-        $this->numProductos++;
+        return $this;
     }
 
-    public function incluirCintaVideo($titulo, $precio, $duracion)
+    public function incluirCintaVideo(string $titulo, float $precio, int $duracion)
     {
         $cinta = new CintaVideo($titulo, $precio, $duracion);
-        $this->incluirProducto($cinta);
-        return $this;
+        return $this->incluirProducto($cinta);
     }
 
-    public function incluirDvd($titulo, $precio, $idiomas, $pantalla)
+    public function incluirDvd(string $titulo, float $precio, array $idiomas, string $pantalla)
     {
         $dvd = new Dvd($titulo, $precio, $idiomas, $pantalla);
-        $this->incluirProducto($dvd);
-        return $this;
+        return $this->incluirProducto($dvd);
     }
 
-    public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ)
+    public function incluirJuego(string $titulo, float $precio, string $consola, int $minJ, int $maxJ)
     {
         $juego = new Juego($titulo, $precio, $consola, $minJ, $maxJ);
-        $this->incluirProducto($juego);
-        return $this;
+        return $this->incluirProducto($juego);
     }
 
-    public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3)
+    public function incluirSocio(string $nombre, string $usuario, string $password, int $maxAlquileresConcurrentes = 3)
     {
-        $cliente = new Cliente($nombre, $maxAlquileresConcurrentes);
+        $cliente = new Cliente($nombre, $usuario, $password, $maxAlquileresConcurrentes);
         $this->socios[] = $cliente;
-        echo "<br>Incluido socio " . $this->numSocios . "<br>";
-        $this->numSocios++;
         return $this;
     }
 
-    public function listarProductos()
+    public function listarProductos(): void
     {
-        echo "<br>Listado de " . $this->numProductos . " productos disponibles:<br>";
-        $i = 1;
+        echo "<br>Productos disponibles:<br>";
         foreach ($this->productos as $p) {
-            echo $i . "-";
             $p->muestraResumen();
-            echo "<br>";
-            $i++;
         }
     }
 
-    public function listarSocios()
+    public function listarSocios(): void
     {
-        echo "<br>Listado de " . $this->numSocios . " socios del videoclub:<br>";
-        $i = 1;
+        echo "<br>Socios del videoclub:<br>";
         foreach ($this->socios as $s) {
-            echo $i . "- Cliente " . $s->getNumero() . ": " . $s->nombre . "<br>";
-            echo "Alquileres actuales: " . $s->getSoportesAlquilados() . "<br>";
-            $i++;
+            echo "Cliente {$s->getNumero()} - {$s->nombre} ({$s->getUsuario()})<br>";
+            echo "Alquileres actuales: {$s->getSoportesAlquilados()}<br>";
         }
     }
 
-    // getters nuevos
-    public function getNumProductosAlquilados()
-    {
-        return $this->numProductosAlquilados;
-    }
-
-    public function getNumTotalAlquileres()
-    {
-        return $this->numTotalAlquileres;
-    }
-
-    // método para alquilar un producto por socio (captura excepciones lanzadas por Cliente)
-    public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
+    // Métodos para alquilar y devolver (igual que antes, con captura de excepciones)
+    public function alquilaSocioProducto(int $numSocio, int $numProducto)
     {
         $socio = null;
         $producto = null;
 
         foreach ($this->socios as $c) {
-            if ($c->getNumero() == $numeroCliente) {
+            if ($c->getNumero() === $numSocio) {
                 $socio = $c;
                 break;
             }
         }
 
         foreach ($this->productos as $p) {
-            if ($p->getNumero() == $numeroSoporte) {
+            if ($p->getNumero() === $numProducto) {
                 $producto = $p;
                 break;
             }
         }
 
-        if (! $socio) {
-            echo "No hay socio con número $numeroCliente<br>";
-            return $this;
-        }
-        if (! $producto) {
-            echo "No hay producto con número $numeroSoporte<br>";
+        if (!$socio || !$producto) {
+            echo "Socio o producto no encontrado<br>";
             return $this;
         }
 
@@ -127,113 +95,10 @@ class Videoclub
             $socio->alquilar($producto);
             $this->numProductosAlquilados++;
             $this->numTotalAlquileres++;
-            echo "<br>Alquiler efectuado: socio {$numeroCliente} -> producto {$numeroSoporte}<br>";
-        } catch (SoporteYaAlquiladoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
-        } catch (CupoSuperadoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (\Exception $e) {
-            echo "Error inesperado al alquilar: " . $e->getMessage() . "<br>";
+            echo $e->getMessage() . "<br>";
         }
 
-        return $this;
-    }
-
-    // alquila varios productos: primero comprueba disponibilidad de todos
-    public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
-    {
-        // buscar socio
-        $socio = null;
-        foreach ($this->socios as $c) {
-            if ($c->getNumero() == $numSocio) {
-                $socio = $c;
-                break;
-            }
-        }
-        if (! $socio) {
-            echo "No hay socio con número $numSocio<br>";
-            return $this;
-        }
-
-        // recopilar productos y comprobar disponibilidad
-        $productosAAlquilar = [];
-        foreach ($numerosProductos as $numProd) {
-            $found = null;
-            foreach ($this->productos as $p) {
-                if ($p->getNumero() == $numProd) {
-                    $found = $p;
-                    break;
-                }
-            }
-            if (! $found) {
-                echo "Producto $numProd no encontrado. No se alquila nada.<br>";
-                return $this;
-            }
-            if ($found->alquilado) {
-                echo "Producto $numProd ya está alquilado. No se alquila nada.<br>";
-                return $this;
-            }
-            $productosAAlquilar[] = $found;
-        }
-
-        // si todos disponibles, alquilarlos (capturando excepciones por si el cliente tiene cupo)
-        try {
-            foreach ($productosAAlquilar as $p) {
-                $socio->alquilar($p);
-                $p->alquilado = true;
-                $this->numProductosAlquilados++;
-                $this->numTotalAlquileres++;
-            }
-            echo "Alquiler múltiple realizado para socio $numSocio: [" . implode(',', $numerosProductos) . "]<br>";
-        } catch (CupoSuperadoException $e) {
-            echo "No se pudo completar alquiler múltiple: " . $e->getMessage() . "<br>";
-            // Si se hubiera producido algún alquiler parcial (raro porque se lanza en el primer falla),
-            // decidimos no revertir aquí para simplificar; en entorno real habría transacción.
-        } catch (\Exception $e) {
-            echo "Error en alquiler múltiple: " . $e->getMessage() . "<br>";
-        }
-
-        return $this;
-    }
-
-    // devolver un producto de un socio
-    public function devolverSocioProducto(int $numSocio, int $numeroProducto)
-    {
-        // buscar socio
-        $socio = null;
-        foreach ($this->socios as $c) {
-            if ($c->getNumero() == $numSocio) {
-                $socio = $c;
-                break;
-            }
-        }
-        if (! $socio) {
-            echo "No hay socio con número $numSocio<br>";
-            return $this;
-        }
-
-        try {
-            $socio->devolver($numeroProducto);
-            // actualizar contador global de productos alquilados
-            if ($this->numProductosAlquilados > 0) {
-                $this->numProductosAlquilados--;
-            }
-            echo "Devolución efectuada: socio $numSocio -> producto $numeroProducto<br>";
-        } catch (SoporteNoEncontradoException $e) {
-            echo "No se pudo devolver: " . $e->getMessage() . "<br>";
-        } catch (\Exception $e) {
-            echo "Error en devolución: " . $e->getMessage() . "<br>";
-        }
-
-        return $this;
-    }
-
-    // devolver varios productos
-    public function devolverSocioProductos(int $numSocio, array $numerosProductos)
-    {
-        foreach ($numerosProductos as $numProd) {
-            $this->devolverSocioProducto($numSocio, $numProd);
-        }
         return $this;
     }
 }

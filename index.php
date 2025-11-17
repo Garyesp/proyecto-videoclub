@@ -1,45 +1,25 @@
-<?php
-// include "Soporte.php";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videoclub 3.0</title>
+</head>
+<body>
+        <!-- -->
+        <form action="login.php" method="POST">
+        <!-- Le pido al usuario su usuario y o guardo en la id usuario -->    
+        <p>Usuario: <input type="text" name="usuario"></p>
+         <!-- Le pido su contraseña y lo guardo en la id password -->   
+            <p>Password <input type="password" name="password"></p>
+        <!-- Envio los datos-->
+        <button type="submit">Entrar</button>
+        </form>
 
-// $soporte1 = new Soporte("Tenet", 22, 3);
-// echo "<strong>" . $soporte1->titulo . "</strong>";
-// echo "<br>Precio: " . $soporte1->getPrecio() . " euros";
-// echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
-// $soporte1->muestraResumen();
-
-
-//test juego.php
-include "Juego.php";
-
-$miJuego = new Juego("The Last of Us Part II", 49.99, "PS4", 1, 1);
-echo "<strong>" . $miJuego->titulo . "</strong>";
-echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
-echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
-$miJuego->muestraResumen();
-
-echo "<br><br><br><br><br>";
-?>
-
-<?php
-include "CintaVideo.php";
-
-$miCinta = new CintaVideo("Los cazafantasmas", 3.5, 107);
-echo "<strong>" . $miCinta->titulo . "</strong>";
-echo "<br>Precio: " . $miCinta->getPrecio() . " euros";
-echo "<br>Precio IVA incluido: " . $miCinta->getPrecioConIva() . " euros";
-$miCinta->muestraResumen();
-echo "<br><br><br><br><br>";
-?>
-
-
-<?php
-include "Dvd.php";
-
-$miDvd = new Dvd("Origen", 15, "es,en,fr", "16:9");
-echo "<strong>" . $miDvd->titulo . "</strong>";
-echo "<br>Precio: " . $miDvd->getPrecio() . " euros";
-echo "<br>Precio IVA incluido: " . $miDvd->getPrecioConIva() . " euros";
-$miDvd->muestraResumen();
-echo "<br><br><br><br><br>";
-?>
-
+        <?php 
+            if(isset($_GET['error'])) {
+                echo "Usuario o contraseña incorrectos";
+            }
+        ?>
+</body>
+</html>
