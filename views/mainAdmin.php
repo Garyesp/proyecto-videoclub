@@ -28,11 +28,14 @@ $soportes = $_SESSION['soportes'] ?? [];
     <h3>Listado de clientes</h3>
 
     <?php
+
+
     foreach ($clientes as $cliente) {
-        echo "Cliente " . $cliente['nombre'] . $cliente['gmail'];
-        echo " ";
+        echo "<li>Cliente: " . $cliente['nombre'] . " , Usuario: " . $cliente['gmail'] . "</li>";
     }
     ?>
+
+     <p><a href="formCreateCliente.php">Dar de alta un nuevo cliente</a></p>
 
     <h3>Listado de soportes</h3>
     <?php
@@ -42,7 +45,9 @@ $soportes = $_SESSION['soportes'] ?? [];
     }
     ?>
 
-    <p><a href="logout.php">Cerrar sesión</a></p>
+    <form action="../logout.php" method="POST">
+        <button type="submit">Cerrar sesión</button>
+    </form>
 </body>
 
 </html>
