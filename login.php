@@ -1,45 +1,50 @@
 <?php
 session_start();
 
-/* Recogemos los datos del formulario */
+// Recogemos los datos del formulario
 $usuario = $_POST['usuario'] ?? '';
 $contraseña = $_POST['password'] ?? '';
 
-/* Compruebo los datos del usuario */
-if (($usuario == "admin" && $contraseña == "admin") ||
-    ($usuario == "usuario" && $contraseña == "usuario")) {
+// Definimos clientes de ejemplo
+$clientes = [
+    ['id' => 1, 'nombre' => 'Marc', 'gmail' => 'maralcban@alu.edu.gva.es', 'user' => 'usuario', 'password' => 'usuario'],
+    ['id' => 2, 'nombre' => 'Pedro', 'gmail' => 'pedritopedro11@gmail.com', 'user' => 'usuario', 'password' => 'usuario'],
+    ['id' => 3, 'nombre' => 'Luis', 'gmail' => 'luisignacio32@gmail.com', 'user' => 'usuario', 'password' => 'usuario']
+];
 
-    /* Si son ciertos, guardo el usuario en la sesión */
+// Definimos soportes de ejemplo
+$soportes = [
+    ['id' => 1, 'titulo' => 'Matrix', 'tipo' => 'DVD'],
+    ['id' => 2, 'titulo' => 'Star Wars', 'tipo' => 'Blu-ray'],
+    ['id' => 3, 'titulo' => 'Interstellar', 'tipo' => 'DVD']
+];
+
+// Comprobamos login
+if (($usuario === 'admin' && $contraseña === 'admin') ||
+    ($usuario === 'usuario' && $contraseña === 'usuario')) {
+
     $_SESSION['usuario'] = $usuario;
 
-    if ($usuario == "admin") {
-        /* Definimos clientes de ejemplo */
-        $_SESSION['clientes'] = [
-            ['id' => 1, 'nombre' => 'Marc', 'gmail' => 'maralcban@alu.edu.gva.es'],
-            ['id' => 2, 'nombre' => 'Pedro', 'gmail' => 'pedritopedro11@gmail.com'],
-            ['id' => 3, 'nombre' => 'Luis', 'gmail' => 'luisignacio32@gmail.com']
-        ];
-
-        /* Definimos soportes de ejemplo */
-        $_SESSION['soportes'] = [
-            ['id' => 1, 'titulo' => 'Matrix', 'tipo' => 'DVD'],
-            ['id' => 2, 'titulo' => 'Star Wars', 'tipo' => 'Blu-ray'],
-            ['id' => 3, 'titulo' => 'Interstellar', 'tipo' => 'DVD']
-        ];
-
-        /* Redirigimos a la página principal del admin */
+    if ($usuario === 'admin') {
+        $_SESSION['clientes'] = $clientes;
+        $_SESSION['soportes'] = $soportes;
         header("Location: views/mainAdmin.php");
         exit;
     }
 
-    if ($usuario == "usuario") {
-        /* Vista para los usuarios (NO admins) */
+    if ($usuario === 'usuario') {
+        // Guardamos **solo el primer cliente** con user = 'usuario' en sesión
+        foreach ($clientes as $c) {
+            if ($c['user'] === 'usuario') {
+                $_SESSION['cliente'] = $c;
+                break;
+            }
+        }
         header("Location: views/mainCliente.php");
         exit;
     }
 
 } else {
-    /* Usuario incorrecto, volvemos al login con error */
     header("Location: index.php?error=1");
     exit;
 }
